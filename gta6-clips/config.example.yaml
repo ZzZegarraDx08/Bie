@@ -1,0 +1,18 @@
+# Copiar a config.yaml. Cada función es un interruptor. Sin claves aquí: van en los secretos del entorno.
+channel: { name: "[NOMBRE]", language: "[es|en]", timezone: "[America/Lima]" }
+budget_usd_per_day: 0
+categories: ["Grand Theft Auto VI", "Grand Theft Auto V", "Just Chatting"]
+gta6_footage_not_before: "2026-11-19"
+sources: { twitch: true, kick: true, youtube_live: true, apify_actor: "omkar-cloud/twitch-clips-scraper", helix_fallback: true }
+require_permission: true          # solo streamers en permissions.csv
+stages: { pull: true, score: true, download: true, edit: true, vertical: true, critic: true, publish: false }
+publish:
+  require_approval: true
+  youtube_longform: "19:00"
+  verticals: ["12:00", "16:00", "20:00"]
+  min_hours_between_verticals: 4
+  platforms: { youtube: true, instagram: true, tiktok_via_upload_post: true }
+  submit_to_clipping_campaigns: false
+edit: { longform_min: [10, 20], clips: [15, 30], clip_sec: [5, 25], lufs: -14 }
+vertical: { count: [3, 5], sec: [15, 40], split: [40, 60], safe_bottom_pct: 15 }
+critic: { rounds_per_day: 2, blind_ab: true }
