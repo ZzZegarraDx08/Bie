@@ -39,7 +39,7 @@ pull → score → download → edit → vertical → critic → publish → rep
 | Tema | A | B | C | Recomendación |
 |------|---|---|---|---------------|
 | Aprobación humana | Totalmente automático; solo la 1.ª semana pide confirmación | Nunca finge trabajo hecho | "Publica solo lo que yo apruebe" | **Aprobación manual hasta tener datos reales**; luego automatizar por formato |
-| Material de terceros | Cualquier clip viral con fuente y offset del VOD; "DM al resto una vez" | **Solo material con permiso**; el crédito no es permiso | Clips más vistos con su enlace | **Lo de B**: streamers con programa de clipping o permiso explícito |
+| Material de terceros | Cualquier clip viral con fuente y offset del VOD; "DM al resto una vez" | **Solo material con permiso**; el crédito no es permiso | Clips más vistos con su enlace | **Decidido (2026-11-18): lo de A.** Clips sin permiso previo, con crédito, aviso al streamer, lista de bloqueo y retirada en < 1 h |
 | Fuentes | Twitch, Kick, YouTube Live | Streams/VOD aprobados | Twitch, Kick, TikTok | Twitch + Kick + YouTube; TikTok solo como señal, no para resubir |
 | Volumen | 1 largo + 3–5 verticales/día | "Calidad primero, salida sostenible" | Diario | Empezar con 1–2 verticales/día; el largo cuando haya material suficiente |
 

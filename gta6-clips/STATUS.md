@@ -13,7 +13,7 @@ Se lee al empezar cada ejecución.
 
 ## En cola
 - [ ] rellenar los [CORCHETES] de PROMPT_MAESTRO.md
-- [ ] permissions.csv con los streamers autorizados
+- [ ] permissions.csv (prioritarios) y blocklist.csv (vetados)
 - [ ] permitir los hosts y guardar las claves como secretos (Apify, Twitch, Google, Meta, upload-post)
 - [ ] etapa `study`
 - [ ] first_run sin publicar

@@ -4,7 +4,10 @@ budget_usd_per_day: 0
 categories: ["Grand Theft Auto VI", "Grand Theft Auto V", "Just Chatting"]
 gta6_footage_not_before: "2026-11-19"
 sources: { twitch: true, kick: true, youtube_live: true, apify_actor: "omkar-cloud/twitch-clips-scraper", helix_fallback: true }
-require_permission: true          # solo streamers en permissions.csv
+require_permission: false         # decisión del dueño: se usan clips sin permiso previo
+prefer_permitted: true            # los streamers de permissions.csv suben en el ranking
+blocklist_file: blocklist.csv     # quien pida no aparecer, nunca más
+takedown_max_minutes: 60
 stages: { pull: true, score: true, download: true, edit: true, vertical: true, critic: true, publish: false }
 publish:
   require_approval: true

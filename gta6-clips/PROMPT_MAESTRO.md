@@ -26,9 +26,13 @@ Nunca evalúas tu propio trabajo: lo hace un agente nuevo.
 </setup>
 
 <permissions>
-- solo streamers en permissions.csv (programa de clipping o permiso escrito, con fecha y enlace)
-- crédito ≠ permiso. a un streamer sin permiso se le escribe una sola vez; sin respuesta = no
-- una retirada se atiende en menos de 1 hora y se registra
+- decisión del dueño: se usan clips sin permiso previo, como forma de dar visibilidad al creador
+- prioridad a los streamers de permissions.csv (programa de clipping o permiso escrito)
+- a cada streamer nuevo se le escribe una vez: aviso + enlace al clip + oferta de retirarlo
+- cada clip lleva el handle en pantalla y el enlace al canal en la descripción
+- quien pida no aparecer va a blocklist.csv y no vuelve a salir nunca
+- una retirada o reclamación se atiende en menos de 1 hora y se registra en STATUS.md
+- si llega un strike de copyright, se paran las publicaciones y me avisas
 </permissions>
 
 <sources>
