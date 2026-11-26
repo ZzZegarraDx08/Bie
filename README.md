@@ -9,3 +9,7 @@ Herramienta en el navegador para diseñar mockups de ropa en 3D (`index.html`, s
 - Deshacer/rehacer, vistas de cámara, giro automático y captura del mockup. El diseño se guarda en el navegador.
 
 Hecho con three.js (r128) y `DecalGeometry`. Para usarlo localmente basta abrir `index.html` dentro de una página HTML o servirlo con cualquier servidor estático.
+
+## Camiseta 360 (`camiseta.html`)
+
+Mockup de camiseta en blanco sobre fondo blanco de estudio, que gira 360°, con costuras, dobladillo doble, cuello en rib y etiqueta interior. Permite cambiar el corte (regular, oversize, slim, boxy crop, cuello V, longline, manga larga, sin mangas) y sus proporciones, color, tela e hilo; agregar diseños en capas (imagen, dibujo, texto) con recorte y quitado de fondo, y ubicaciones estándar de estampado. Exporta una ficha para la diseñadora (4 vistas, medidas, colores y posición de cada diseño) y las vistas sueltas en PNG.
