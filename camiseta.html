@@ -18,7 +18,22 @@ body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,system-u
 button,input,select,textarea{font:inherit;color:inherit}
 button{cursor:pointer}
 .app{display:grid;grid-template-columns:minmax(0,1fr) 388px;height:100%}
-.stage{position:relative;overflow:hidden;background:#fff;touch-action:none;color:#141518}
+.stage{position:relative;overflow:hidden;background:var(--stg,#0b0b0c);touch-action:none;color:#141518}
+.stage.dark{color:#f1f1ee}
+.stage.dark .pill{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.16);color:#f1f1ee}
+.stage.dark .pill:hover{border-color:#fff}
+.stage.dark .badge span,.stage.dark .hint,.stage.dark .loading{color:#9a9ca2}
+.stage.dark .turn{background:rgba(24,25,28,.92);border-color:rgba(255,255,255,.12);box-shadow:none}
+.stage.dark .ib{color:#f1f1ee}
+.stage.dark .ib:hover{background:rgba(255,255,255,.08)}
+.stage.dark .ib.on{background:#f1f1ee;color:#141518}
+.stage.dark .sep{background:rgba(255,255,255,.14)}
+.stage.dark .turn .deg{color:#f1f1ee}
+.stage.dark .turn input[type=range]::-webkit-slider-runnable-track{background:repeating-linear-gradient(90deg,#55575c 0 1px,transparent 1px 12.5%),linear-gradient(#2a2b2f,#2a2b2f)}
+.stage.dark .turn input[type=range]::-moz-range-track{background:repeating-linear-gradient(90deg,#55575c 0 1px,transparent 1px 12.5%),linear-gradient(#2a2b2f,#2a2b2f)}
+.stage.dark .turn input[type=range]::-webkit-slider-thumb{background:#f1f1ee;border-color:#f1f1ee}
+.stage.dark .placebar{background:#f1f1ee;color:#141518}
+.stage.dark .placebar button{background:#141518;color:#f1f1ee}
 #gl{position:absolute;inset:0;width:100%;height:100%;display:block;outline:none;cursor:grab}
 .stage.placing #gl{cursor:crosshair}
 .stage.dragging #gl{cursor:grabbing}
@@ -132,7 +147,7 @@ dialog::backdrop{background:rgba(10,10,14,.5)}
 #cropCv{width:100%;max-height:56svh;object-fit:contain;display:block;touch-action:none}
 .outs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:10px}
 .outs figure{margin:0}
-.outs img{width:100%;border:1px solid #e6e6e3;border-radius:10px;background:#fff;display:block}
+.outs img{width:100%;border:1px solid #e6e6e3;border-radius:10px;display:block}
 .outs figcaption{font-size:12px;color:var(--mute);margin-top:4px}
 #sheetImg{width:100%;border:1px solid #e6e6e3;border-radius:12px;display:block;background:#fff}
 .loading{position:absolute;inset:0;display:grid;place-items:center;color:#7a7d84;font-size:14px;z-index:1}
@@ -184,7 +199,7 @@ dialog::backdrop{background:rgba(10,10,14,.5)}
  <aside class="panel">
   <div class="phead">
    <h1>Camiseta 360</h1>
-   <p>Tu camiseta en blanco, lista para enviar. Ajusta el corte, ponle diseños encima y exporta la ficha para tu diseñadora.</p>
+   <p>Tu camiseta en blanco sobre fondo de estudio, lista para enviar. Ajusta el corte, ponle diseños encima y exporta la ficha para tu diseñadora.</p>
   </div>
   <nav class="tabs" role="tablist">
    <button data-tab="prenda" class="on">Corte</button>
@@ -211,6 +226,8 @@ dialog::backdrop{background:rgba(10,10,14,.5)}
    </div>
 
    <div class="tab" id="t-color" hidden>
+    <h3>Fondo del estudio</h3>
+    <div class="seg" id="bgSeg"><button data-bg="negro">Negro</button><button data-bg="gris">Gris</button><button data-bg="blanco">Blanco</button></div>
     <h3>Color de la camiseta <small id="mainHex"></small></h3>
     <div class="sw" id="swMain"></div>
     <h3>Cuello rib</h3>
@@ -263,7 +280,7 @@ dialog::backdrop{background:rgba(10,10,14,.5)}
     <label class="toggle">Sombra suave en el piso <input type="checkbox" id="tShadow" checked></label>
     <label class="toggle">Incluir diseños en la ficha <input type="checkbox" id="tPrints" checked></label>
     <button class="btn pri big" id="mkSheet">Generar ficha y vistas</button>
-    <p class="note">Crea una lámina con frente, espalda y ambos lados en fondo blanco, con medidas, colores y posición de cada diseño, además de las 4 vistas sueltas en alta resolución.</p>
+    <p class="note">Crea una lámina con frente, espalda y ambos lados sobre el fondo del estudio, con medidas, colores y posición de cada diseño, además de las 4 vistas sueltas en alta resolución.</p>
     <button class="btn big" id="mkView" style="margin-top:12px">Solo la vista actual (alta resolución)</button>
    </div>
   </div>
@@ -314,7 +331,7 @@ dialog::backdrop{background:rgba(10,10,14,.5)}
  <div class="dbody">
   <img id="sheetImg" alt="Ficha de la camiseta">
   <div class="outs" id="outs"></div>
-  <p class="note">Para guardar: mantén presionada una imagen (celular) o clic derecho → «Guardar imagen como…». Son PNG en fondo blanco, listos para enviar.</p>
+  <p class="note">Para guardar: mantén presionada una imagen (celular) o clic derecho → «Guardar imagen como…». Las imágenes salen con el fondo del estudio que elegiste (Color y tela → Fondo del estudio).</p>
  </div>
 </dialog>
 
@@ -356,7 +373,7 @@ const SWATCH=['#ffffff','#f2f0eb','#e9e4d8','#d9c3a5','#b9b4a8','#8a8d91','#4a4d
 /* ---------- estado ---------- */
 const TEX={};
 let S=null,sel=null;const D=[];const hist=[];let hi=-1,decalSeq=0;
-function defaultState(){return{cut:'regular',p:cutP('regular'),size:'M',color:'#ffffff',rib:'#ffffff',ribSame:true,thread:'tono',threadC:'#8a8d91',fabric:'jersey',label:'BIE',name:'Camiseta regular BIE',notes:'Diseño en serigrafía. Respetar márgenes de 3 cm a costuras. Medidas en cm, prenda plana.',shadow:true}}
+function defaultState(){return{cut:'regular',p:cutP('regular'),size:'M',color:'#ffffff',rib:'#ffffff',ribSame:true,thread:'tono',threadC:'#8a8d91',fabric:'jersey',label:'BIE',bg:'negro',name:'Camiseta regular BIE',notes:'Diseño en serigrafía. Respetar márgenes de 3 cm a costuras. Medidas en cm, prenda plana.',shadow:true}}
 function addTex(canvas,name,id){id=id||('u'+Date.now().toString(36)+Math.random().toString(36).slice(2,6));TEX[id]={canvas,name};return id}
 function texUrl(id){const t=TEX[id];if(!t.url)t.url=t.canvas.toDataURL('image/png');return t.url}
 
@@ -374,7 +391,9 @@ Object.assign(key.shadow.camera,{left:-.8,right:.8,top:2,bottom:.4,near:.5,far:8
 scene.add(new THREE.HemisphereLight(0xffffff,0xbdbab4,.35));
 const back=new THREE.DirectionalLight(0xffffff,.55);back.position.set(-1.6,2.4,-2.8);scene.add(back);
 const blobC=mkCanvas(256),bg=blobC.getContext('2d'),gr=bg.createRadialGradient(128,128,0,128,128,128);gr.addColorStop(0,'rgba(0,0,0,.30)');gr.addColorStop(.5,'rgba(0,0,0,.12)');gr.addColorStop(1,'rgba(0,0,0,0)');bg.fillStyle=gr;bg.fillRect(0,0,256,256);
-const blob=new THREE.Mesh(new THREE.PlaneGeometry(1,1),new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(blobC),transparent:true,depthWrite:false,toneMapped:false}));blob.rotation.x=-PI/2;scene.add(blob);
+const glowC=mkCanvas(256),gg=glowC.getContext('2d'),g2=gg.createRadialGradient(128,128,0,128,128,128);g2.addColorStop(0,'rgba(255,255,255,.16)');g2.addColorStop(.55,'rgba(255,255,255,.05)');g2.addColorStop(1,'rgba(255,255,255,0)');gg.fillStyle=g2;gg.fillRect(0,0,256,256);
+const BLOBT={dark:new THREE.CanvasTexture(blobC),light:new THREE.CanvasTexture(glowC)};
+const blob=new THREE.Mesh(new THREE.PlaneGeometry(1,1),new THREE.MeshBasicMaterial({map:BLOBT.dark,transparent:true,depthWrite:false,toneMapped:false}));blob.rotation.x=-PI/2;scene.add(blob);
 
 const ray=new THREE.Raycaster(),ndc=new THREE.Vector2();
 let drag=null,down=null,placing=null,preview=null,hoverQ=null,mvQ=null;
@@ -508,8 +527,10 @@ function buildScene(){disposeTee();M=makeMats();const g=buildTee(S.p);
  const group=new THREE.Group(),main=new THREE.Mesh(g.main,M.main),inner=new THREE.Mesh(g.main,M.inner),rib=new THREE.Mesh(g.rib,M.rib),edge=new THREE.Mesh(g.edge,M.edge),label=new THREE.Mesh(g.label,M.label);
  [main,rib,edge].forEach(m=>{m.castShadow=m.receiveShadow=true});inner.receiveShadow=true;
  group.add(main,inner,rib,edge,label);scene.add(group);G={group,main,rib,edge,label,info:g};drawDetail(GEO);setThread();
- const box=new THREE.Box3().setFromObject(group);blob.position.set(0,box.min.y-.09,0);blob.scale.set((box.max.x-box.min.x)*1.15,(box.max.z-box.min.z)*2.6,1);blob.visible=S.shadow;
+ const box=new THREE.Box3().setFromObject(group);blob.position.set(0,box.min.y-.09,0);blob.scale.set((box.max.x-box.min.x)*1.15,(box.max.z-box.min.z)*2.6,1);blob.visible=S.shadow;applyBg();
  G.box=box}
+const BGS={negro:'#0b0b0c',gris:'#8f9195',blanco:'#ffffff'};
+function applyBg(){const b=S.bg||'negro',hex=BGS[b];scene.background.set(hex);renderer.toneMappingExposure=b==='negro'?.7:.8;stage.style.setProperty('--stg',hex);stage.classList.toggle('dark',b!=='blanco');blob.material.map=b==='negro'?BLOBT.light:BLOBT.dark;blob.material.needsUpdate=true}
 function recolor(){if(!G)return;M.main.color.copy(lin(S.color));M.edge.color.copy(lin(S.color));M.inner.color.copy(lin(S.color).multiplyScalar(.72));M.rib.color.copy(lin(S.ribSame?S.color:S.rib));setThread()}
 
 /* ---------- capas de diseño (decals) ---------- */
@@ -587,7 +608,7 @@ let saveT=0;
 function commit(){const s=snapshot();if(hist[hi]===s)return;hist.splice(hi+1);hist.push(s);if(hist.length>60)hist.shift();hi=hist.length-1;syncUndo();clearTimeout(saveT);saveT=setTimeout(persist,700)}
 function persist(){const st=JSON.parse(hist[hi]),tex={};for(const d of st.D)for(const id of[d.tex,d.orig])if(id&&!tex[id]&&TEX[id]&&!TEX[id].builtin)tex[id]={name:TEX[id].name,url:texUrl(id)};
  if(!store.set('camiseta360',JSON.stringify({st,tex})))store.set('camiseta360',JSON.stringify({st:{S:st.S,D:st.D.filter(d=>TEX[d.tex].builtin)},tex:{}}))}
-function restore(json){const st=JSON.parse(json),prev=S?JSON.stringify([S.p,S.size,S.fabric,S.label]):'';for(const d of[...D])removeDecal(d.id);S=st.S;
+function restore(json){const st=JSON.parse(json),prev=S?JSON.stringify([S.p,S.size,S.fabric,S.label]):'';for(const d of[...D])removeDecal(d.id);S=st.S;S.bg=S.bg||'negro';applyBg();
  if(prev!==JSON.stringify([S.p,S.size,S.fabric,S.label])||!G)buildScene();else{recolor();blob.visible=S.shadow}
  for(const d of st.D)if(TEX[d.tex])addDecal(d,true);sel=null;updateMarker();renderUI()}
 function syncUndo(){$('#undo').disabled=hi<=0;$('#redo').disabled=hi>=hist.length-1}
@@ -646,12 +667,13 @@ $$('#sizeSeg button').forEach(b=>b.onclick=()=>{S.size=b.dataset.size;rebuild();
 $('#resetFit').onclick=()=>{S.p=cutP(S.cut);rebuild();commit();renderFit()};
 function swatches(el,cur,fn){el.innerHTML=SWATCH.map(c=>`<button style="background:${c}" data-c="${c}" class="${c===cur?'on':''}" aria-label="Color ${c}"></button>`).join('')+`<label class="picker" title="Otro color">+<input type="color" value="${cur}"></label>`;
  el.querySelectorAll('button').forEach(b=>b.onclick=()=>fn(b.dataset.c,true));const ip=el.querySelector('input');ip.oninput=()=>fn(ip.value,false);ip.onchange=()=>fn(ip.value,true)}
-function renderColor(){$('#mainHex').textContent=S.color.toUpperCase();
+function renderColor(){$$('#bgSeg button').forEach(b=>b.classList.toggle('on',b.dataset.bg===(S.bg||'negro')));$('#mainHex').textContent=S.color.toUpperCase();
  swatches($('#swMain'),S.color,(c,fin)=>{S.color=c;recolor();$('#mainHex').textContent=c.toUpperCase();if(fin){commit();renderColor()}});
  $('#ribSame').checked=S.ribSame;$('#swRib').hidden=S.ribSame;swatches($('#swRib'),S.rib,(c,fin)=>{S.rib=c;recolor();if(fin){commit();renderColor()}});
  $$('#threadSeg button').forEach(b=>b.classList.toggle('on',b.dataset.th===S.thread));$('#swThread').hidden=S.thread!=='custom';swatches($('#swThread'),S.threadC,(c,fin)=>{S.threadC=c;setThread();if(fin){commit();renderColor()}});
  $('#fabSeg').innerHTML=Object.entries(FABRICS).map(([k,f])=>`<button data-f="${k}" class="${S.fabric===k?'on':''}">${f.n.replace(' g',' g')}</button>`).join('');
  $$('#fabSeg button').forEach(b=>b.onclick=()=>{S.fabric=b.dataset.f;rebuild();commit();renderColor();badge()});$('#fabNote').textContent=FABRICS[S.fabric].note;$('#labelTxt').value=S.label}
+$$('#bgSeg button').forEach(b=>b.onclick=()=>{S.bg=b.dataset.bg;applyBg();commit();renderColor()});
 $('#ribSame').onchange=e=>{S.ribSame=e.target.checked;recolor();commit();renderColor()};
 $$('#threadSeg button').forEach(b=>b.onclick=()=>{S.thread=b.dataset.th;setThread();commit();renderColor()});
 $('#labelTxt').oninput=e=>{S.label=e.target.value;labelTex.image=labelCanvas(S.label);labelTex.needsUpdate=true};$('#labelTxt').onchange=()=>commit();
